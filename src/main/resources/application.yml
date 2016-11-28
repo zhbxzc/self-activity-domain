@@ -1,0 +1,39 @@
+---  
+spring:
+  datasource:
+    name: mydb
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/selfdb?zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    minIdle: 10
+    maxActive: 2000
+    initialSize: 10
+    timeBetweenEvictionRunsMillis: 1800000
+    minEvictableIdleTimeMillis: 1800000
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: zhb
+    password: zhb
+    virtual-host: cloud-zhb
+
+mybatis:
+  #此配置配合xmlUserMapper的使用
+  mapperLocations: classpath:/mappers/*.xml
+  typeAliasesPackage: com.self.activity.model
+eureka:
+  instance:
+    preferIpAddress: true
+    statusPageUrlPath: /info.html
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+hystrix.command.default:
+  execution.isolation.thread.timeoutInMilliseconds: 10000
+sdk.result.hasThrowable: false
