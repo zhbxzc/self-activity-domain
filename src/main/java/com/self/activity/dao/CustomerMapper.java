@@ -1,6 +1,12 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.self.activity.model.Customer;
+import com.self.activity.vo.QueryCustParam;
+import com.self.activity.sdk.bean.PageBean;
 
 public interface CustomerMapper {
     /**
@@ -50,4 +56,20 @@ public interface CustomerMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(Customer record);
+    
+    List<Customer> search(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
+    
+    Customer searchById(Long id);
+    
+    int delete(Long id);
+    
+    long searchCount(QueryCustParam custparam);
+    
+    long isDup(Customer customer);
+    
+    int register(Customer customer);
+    
+    int alter(Customer customer);
+    
+    
 }

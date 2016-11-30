@@ -579,4 +579,167 @@
       deleted_flag = #{deletedFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <insert id="register" parameterType="com.self.activity.model.Customer" useGeneratedKeys="true" keyProperty="id" >
+  	insert into cu_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="idCardNo != null" >
+        id_card_no,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="idCardNo != null" >
+        #{idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="alter" parameterType="com.self.activity.model.Customer" >
+  	update cu_customer
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="idCardNo != null" >
+        id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdatedTime != null" >
+        last_updated_time = #{lastUpdatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="search"  parameterType="com.self.activity.model.Customer" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from cu_customer
+     where 1=1
+      <if test="cust.name != null  and cust.name !=''">
+        AND name like "%"#{cust.name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="cust.idCardNo != null  and cust.idCardNo!=''">
+        AND id_card_no = #{cust.idCardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="cust.email != null  and cust.email!=''">
+        AND email = #{cust.email,jdbcType=VARCHAR}
+      </if>
+     <if test="cust.birthday != null  and cust.birthday!=''">
+        AND birthday = #{cust.birthday,jdbcType=DATE}
+      </if>
+     <if test="cust.mobile != null and cust.mobile != '' ">
+        AND mobile = #{cust.mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="cust.tel != null and cust.tel != '' ">
+        AND tel = #{cust.tel,jdbcType=VARCHAR}
+      </if>
+      <if test="cust.nickname != null and cust.nickname != ''">
+        AND nickname = #{cust.nickname,jdbcType=VARCHAR}
+      </if>
+       AND deleted_flag=0 
+        order by last_updated_time desc
+       <if test="page.offset !=null and page.size !=null and page.offset >=0 and page.size >=0">
+	 	 limit #{page.offset},#{page.size}
+	  </if>
+  </select>
+  <select id="searchCount"  parameterType="com.self.activity.model.Customer" resultType="java.lang.Long">
+  	select 
+    count(1)
+    from cu_customer
+     where 1=1
+      <if test="name != null  and name !=''">
+        AND name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="idCardNo != null  and idCardNo!=''">
+        AND id_card_no = #{idCardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null  and email!=''">
+        AND email = #{email,jdbcType=VARCHAR}
+      </if>
+     <if test="birthday != null  and birthday!=''">
+        AND birthday = #{birthday,jdbcType=DATE}
+      </if>
+     <if test="mobile != null and mobile != '' ">
+        AND mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="tel != null and tel != '' ">
+        AND tel = #{tel,jdbcType=VARCHAR}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        AND nickname = #{nickname,jdbcType=VARCHAR}
+      </if>
+       AND deleted_flag=0 
+  </select>
+  <select id="searchById" parameterType="com.self.activity.model.Customer" resultMap="BaseResultMap"  >
+  	select 
+    <include refid="Base_Column_List" />
+    from cu_customer
+     where deleted_flag=0 and id= #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+  	update cu_customer set deleted_flag=1 where id=#{id,jdbcType=BIGINT} and deleted_flag=0
+  </delete>
+  <select id="isDup" parameterType="com.self.activity.model.Customer" resultType="java.lang.Long" >
+  	select count(1) from cu_customer where id_card_no=#{idCardNo,jdbcType=VARCHAR} and deleted_flag=0 
+  	<if test="id != null">
+  		and id != #{id,jdbcType=BIGINT}
+  	</if>
+  </select>
 </mapper>
