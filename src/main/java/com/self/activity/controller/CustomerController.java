@@ -43,7 +43,7 @@ public class CustomerController {
 		customerService.register(customer);
 		return new Result<Customer>("0",customer);
 	}
-	@ApiOperation(value="客户更新",notes="客户更新接口")
+	@ApiOperation(value="客户更新",notes="客户的更新接口")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="Customer",paramType="body"),
 		@ApiImplicitParam(name = "TK_BUSINESS_SERIALID", value = "交易流水", required = true,dataType="String",paramType="header",defaultValue="11111"),
