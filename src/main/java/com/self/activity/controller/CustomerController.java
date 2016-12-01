@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
 public class CustomerController {
 	@Resource
 	private CustomerService customerService;
-	@ApiOperation(value="客户注册",notes="客户注册接口")
+	@ApiOperation(value="客户注册",notes="客户的注册接口")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="Customer",paramType="body"),
 		@ApiImplicitParam(name = "TK_BUSINESS_SERIALID", value = "交易流水", required = true,dataType="String",paramType="header",defaultValue="11111"),
