@@ -8,7 +8,28 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="state_id" property="stateId" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="VARCHAR" />
+    <result column="subdistrict" property="subdistrict" jdbcType="VARCHAR" />
+    <result column="postal_code" property="postalCode" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="community_id" property="communityId" jdbcType="INTEGER" />
+    <result column="part_community_id" property="partCommunityId" jdbcType="INTEGER" />
+    <result column="bldgnum" property="bldgnum" jdbcType="VARCHAR" />
+    <result column="roomnum" property="roomnum" jdbcType="VARCHAR" />
+    <result column="version_no" property="versionNo" jdbcType="INTEGER" />
+    <result column="created_by_id" property="createdById" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by_id" property="lastUpdatedById" jdbcType="BIGINT" />
+    <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="queryAdderssByCustId" type="com.self.activity.vo.QueryAddressResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="state_id" property="stateId" jdbcType="VARCHAR" />
     <result column="city_id" property="cityId" jdbcType="VARCHAR" />
@@ -70,7 +91,7 @@
       roomnum, version_no, created_by_id, 
       created_time, last_updated_by_id, last_updated_time, 
       deleted_flag)
-    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{typeId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
       #{stateId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{districtId,jdbcType=VARCHAR}, 
       #{subdistrict,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
       #{communityId,jdbcType=INTEGER}, #{partCommunityId,jdbcType=INTEGER}, #{bldgnum,jdbcType=VARCHAR}, 
@@ -149,7 +170,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="customerId != null" >
-        #{customerId,jdbcType=BIGINT},
+        #{customerId,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null" >
         #{typeId,jdbcType=INTEGER},
@@ -213,7 +234,7 @@
     update cu_address
     <set >
       <if test="customerId != null" >
-        customer_id = #{customerId,jdbcType=BIGINT},
+        customer_id = #{customerId,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null" >
         type_id = #{typeId,jdbcType=INTEGER},
@@ -276,7 +297,7 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     update cu_address
-    set customer_id = #{customerId,jdbcType=BIGINT},
+    set customer_id = #{customerId,jdbcType=VARCHAR},
       type_id = #{typeId,jdbcType=INTEGER},
       state_id = #{stateId,jdbcType=VARCHAR},
       city_id = #{cityId,jdbcType=VARCHAR},
@@ -296,4 +317,10 @@
       deleted_flag = #{deletedFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="searchBycustId" parameterType="java.lang.String" resultMap="queryAdderssByCustId" >
+  	select 
+    	<include refid="Base_Column_List" />
+    from cu_address
+    	where customer_id = #{customerId,jdbcType=VARCHAR} and deleted_flag=0
+  </select>
 </mapper>

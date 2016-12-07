@@ -8,7 +8,7 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="version_no" property="versionNo" jdbcType="INTEGER" />
@@ -57,7 +57,7 @@
       value, version_no, created_by_id, 
       created_time, last_updated_by_id, last_updated_time, 
       deleted_flag)
-    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{typeId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
       #{value,jdbcType=VARCHAR}, #{versionNo,jdbcType=INTEGER}, #{createdById,jdbcType=BIGINT}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{lastUpdatedById,jdbcType=BIGINT}, #{lastUpdatedTime,jdbcType=TIMESTAMP}, 
       #{deletedFlag,jdbcType=BIT})
@@ -106,7 +106,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="customerId != null" >
-        #{customerId,jdbcType=BIGINT},
+        #{customerId,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null" >
         #{typeId,jdbcType=INTEGER},
@@ -143,7 +143,7 @@
     update cu_xindex
     <set >
       <if test="customerId != null" >
-        customer_id = #{customerId,jdbcType=BIGINT},
+        customer_id = #{customerId,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null" >
         type_id = #{typeId,jdbcType=INTEGER},
@@ -179,7 +179,7 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     update cu_xindex
-    set customer_id = #{customerId,jdbcType=BIGINT},
+    set customer_id = #{customerId,jdbcType=VARCHAR},
       type_id = #{typeId,jdbcType=INTEGER},
       value = #{value,jdbcType=VARCHAR},
       version_no = #{versionNo,jdbcType=INTEGER},

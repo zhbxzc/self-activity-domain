@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- <Encoding>UTF-8</Encoding> -->
+		<encoder>
+			<pattern>
+				[LSV/01][%p][%d{yyyy-MM-dd'T'HH:mm:ss.SSS}]%m%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- <Encoding>UTF-8</Encoding> -->
+		<file>D:/logs/cust/cust.log</file>
+		<encoder>
+			<pattern>
+				[LSV/01][%p][%d{yyyy-MM-dd'T'HH:mm:ss.SSS}]%m%n
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>D:/logs/cust/cust_%d{yyyyMMdd}_%i.log</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	<root level="WARN" >
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+</configuration>

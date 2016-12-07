@@ -1,6 +1,9 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
 import com.self.activity.model.Address;
+import com.self.activity.vo.QueryAddressResult;
 
 public interface AddressMapper {
     /**
@@ -50,4 +53,6 @@ public interface AddressMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(Address record);
+    
+    List<QueryAddressResult> searchBycustId(String customerId);
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.self.activity.model.Customer;
 import com.self.activity.vo.QueryCustParam;
+import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
 
 public interface CustomerMapper {
@@ -59,9 +60,9 @@ public interface CustomerMapper {
     
     List<Customer> search(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
     
-    Customer searchById(Long id);
+    Customer searchById(String id);
     
-    int delete(Long id);
+    int delete(String id);
     
     long searchCount(QueryCustParam custparam);
     
@@ -71,5 +72,5 @@ public interface CustomerMapper {
     
     int alter(Customer customer);
     
-    
+    List<QueryCustResult> searchCust(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
 }
