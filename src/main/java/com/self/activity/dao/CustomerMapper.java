@@ -59,9 +59,9 @@ public interface CustomerMapper {
     
     List<Customer> search(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
     
-    Customer searchById(Long id);
+    Customer searchById(String id);
     
-    int delete(Long id);
+    int delete(String id);
     
     long searchCount(QueryCustParam custparam);
     

@@ -55,7 +55,7 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer/{id}",method=RequestMethod.PUT,produces="application/json;charset='UTF-8'")
-	public Result<Customer> alter(@PathVariable Long id,@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+	public Result<Customer> alter(@PathVariable String id,@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
 		customer.setId(id);
 		int num = customerService.alter(customer);
 		if(num == 0){
@@ -132,7 +132,7 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer/{id}",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
-	public Result<Customer> searchById(@PathVariable Long id,@RequestHeader HttpHeaders headers){
+	public Result<Customer> searchById(@PathVariable String id,@RequestHeader HttpHeaders headers){
 		Customer customer = customerService.searchById(id);
 		if(null == customer){
 			return new Result<Customer>("CUS10030",customer);
@@ -151,7 +151,7 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="customer/{id}",method=RequestMethod.DELETE,produces="application/json;charset='UTF-8'")
-	public Result<Long> delete(@PathVariable Long id,@RequestHeader HttpHeaders headers){
+	public Result<Long> delete(@PathVariable String id,@RequestHeader HttpHeaders headers){
 		int count = customerService.delete(id);
 		if(count == 0){
 			return new Result<Long>("1");

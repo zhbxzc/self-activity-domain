@@ -43,10 +43,10 @@ public class CustomerService {
 		pageBean.init();
 		return customerMapper.search(custparam,pageBean);
 	}
-	public Customer searchById(Long id){
+	public Customer searchById(String id){
 		return customerMapper.searchById(id);
 	}
-	public int delete(Long id){
+	public int delete(String id){
 		return customerMapper.delete(id);
 	}
 	public long searchCount(QueryCustParam custparam){
