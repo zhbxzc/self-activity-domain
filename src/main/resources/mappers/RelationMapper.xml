@@ -8,7 +8,7 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="custormer_id" property="custormerId" jdbcType="BIGINT" />
+    <result column="custormer_id" property="custormerId" jdbcType="VARCHAR" />
     <result column="relation_customer_id" property="relationCustomerId" jdbcType="BIGINT" />
     <result column="relation_type_id" property="relationTypeId" jdbcType="VARCHAR" />
     <result column="version_no" property="versionNo" jdbcType="INTEGER" />
@@ -57,7 +57,7 @@
       relation_type_id, version_no, created_by_id, 
       created_time, last_updated_by_id, last_updated_time, 
       deleted_flag)
-    values (#{id,jdbcType=BIGINT}, #{custormerId,jdbcType=BIGINT}, #{relationCustomerId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{custormerId,jdbcType=VARCHAR}, #{relationCustomerId,jdbcType=BIGINT}, 
       #{relationTypeId,jdbcType=VARCHAR}, #{versionNo,jdbcType=INTEGER}, #{createdById,jdbcType=BIGINT}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{lastUpdatedById,jdbcType=BIGINT}, #{lastUpdatedTime,jdbcType=TIMESTAMP}, 
       #{deletedFlag,jdbcType=BIT})
@@ -106,7 +106,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="custormerId != null" >
-        #{custormerId,jdbcType=BIGINT},
+        #{custormerId,jdbcType=VARCHAR},
       </if>
       <if test="relationCustomerId != null" >
         #{relationCustomerId,jdbcType=BIGINT},
@@ -143,7 +143,7 @@
     update cu_relation
     <set >
       <if test="custormerId != null" >
-        custormer_id = #{custormerId,jdbcType=BIGINT},
+        custormer_id = #{custormerId,jdbcType=VARCHAR},
       </if>
       <if test="relationCustomerId != null" >
         relation_customer_id = #{relationCustomerId,jdbcType=BIGINT},
@@ -179,7 +179,7 @@
       This element was generated on Fri Nov 25 09:37:25 CST 2016.
     -->
     update cu_relation
-    set custormer_id = #{custormerId,jdbcType=BIGINT},
+    set custormer_id = #{custormerId,jdbcType=VARCHAR},
       relation_customer_id = #{relationCustomerId,jdbcType=BIGINT},
       relation_type_id = #{relationTypeId,jdbcType=VARCHAR},
       version_no = #{versionNo,jdbcType=INTEGER},

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.self.activity.model.Customer;
 import com.self.activity.vo.QueryCustParam;
+import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
 
 public interface CustomerMapper {
@@ -71,5 +72,5 @@ public interface CustomerMapper {
     
     int alter(Customer customer);
     
-    
+    List<QueryCustResult> searchCust(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
 }
