@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.self.activity.dao.CustomerMapper;
 import com.self.activity.model.Customer;
+import com.self.activity.vo.CustomerVO;
 import com.self.activity.vo.QueryCustParam;
 import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
@@ -19,7 +20,7 @@ public class CustomerService {
 	private CustomerMapper customerMapper;
 	
 	@Transactional
-	public void register(Customer customer){
+	public void register(CustomerVO customer){
 		if(customer.getIdCardNo()!=null&&!"".equals(customer.getIdCardNo())){
 			long dup = customerMapper.isDup(customer);
 			if(dup>0){				
@@ -30,7 +31,7 @@ public class CustomerService {
 		customerMapper.register(customer);
 	}
 	@Transactional
-	public void alter(Customer customer){
+	public void alter(CustomerVO customer){
 		if(customer.getIdCardNo()!=null&&!"".equals(customer.getIdCardNo())){
 			long dup = customerMapper.isDup(customer);
 			if(dup>0){

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.self.activity.service.CustomerService;
+import com.self.activity.vo.CustomerVO;
 import com.self.activity.vo.QueryCustParam;
 import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
@@ -30,7 +31,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	@ApiOperation(value="客户注册",notes="客户的注册接口")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="Customer",paramType="body"),
+		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="CustomerVO",paramType="body"),
 		@ApiImplicitParam(name = "TK_BUSINESS_SERIALID", value = "交易流水", required = true,dataType="String",paramType="header",defaultValue="11111"),
 		@ApiImplicitParam(name = "TK_REQUEST_SYS_CODE", value = "请求方系统编码", required = false,dataType="String",paramType="header",defaultValue="22222"),
 		@ApiImplicitParam(name = "TK_REQUEST_MODULE_CODE", value = "请求方模块编码", required = false,dataType="String",paramType="header",defaultValue="33333"),
@@ -40,9 +41,9 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer",method=RequestMethod.POST,produces="application/json;charset='UTF-8'")
-	public Result<Customer> register(@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+	public Result<CustomerVO> register(@Valid @RequestBody CustomerVO customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
 		customerService.register(customer);
-		return new Result<Customer>("0",customer);
+		return new Result<CustomerVO>("0",customer);
 	}
 	@ApiOperation(value="客户更新",notes="客户的更新接口")
 	@ApiImplicitParams({
@@ -56,10 +57,10 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer/{id}",method=RequestMethod.PUT,produces="application/json;charset='UTF-8'")
-	public Result<Customer> alter(@PathVariable String id,@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+	public Result<CustomerVO> alter(@PathVariable String id,@Valid @RequestBody CustomerVO customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
 		customer.setId(id);
 		customerService.alter(customer);
-		return new Result<Customer>("0",customer);
+		return new Result<CustomerVO>("0",customer);
 	}
 	@ApiOperation(value="客户查询",notes="客户查询接口")
 	@ApiImplicitParams({

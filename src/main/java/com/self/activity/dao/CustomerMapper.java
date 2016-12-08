@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.self.activity.model.Customer;
+import com.self.activity.vo.CustomerVO;
 import com.self.activity.vo.QueryCustParam;
 import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
@@ -66,11 +67,11 @@ public interface CustomerMapper {
     
     long searchCount(QueryCustParam custparam);
     
-    long isDup(Customer customer);
+    long isDup(CustomerVO customer);
     
-    int register(Customer customer);
+    int register(CustomerVO customer);
     
-    int alter(Customer customer);
+    int alter(CustomerVO customer);
     
     List<QueryCustResult> searchCust(@Param(value="cust")QueryCustParam custparam,@Param(value="page")PageBean pageBean);
 }
