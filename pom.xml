@@ -73,6 +73,7 @@
          <groupId>org.springframework.cloud</groupId>
          <artifactId>spring-cloud-sleuth-stream</artifactId>
      </dependency>
+     
      <!-- mongoDB支持 -->
      <!-- <dependency>
      	<groupId>org.springframework.boot</groupId>

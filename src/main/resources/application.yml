@@ -22,7 +22,12 @@ spring:
     username: qianyanglong
     password: wansui
     virtual-host: qianyanglongdexuniji
-
+  data:
+    solr:
+      host: http://127.0.0.1:11011/solr/basecode
+      zk-host: 
+      repositories:
+        enabled: true
 mybatis:
   #此配置配合xmlUserMapper的使用
   mapperLocations: classpath:/mappers/*.xml
