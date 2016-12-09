@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-public class DomainApplication
+public class SelfActivityDomainApplication
 {
 	@Bean
 	Sampler sampler()
@@ -44,6 +44,6 @@ public class DomainApplication
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(DomainApplication.class, args);
+		SpringApplication.run(SelfActivityDomainApplication.class, args);
 	}
 }

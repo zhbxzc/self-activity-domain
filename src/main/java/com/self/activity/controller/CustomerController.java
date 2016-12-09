@@ -22,7 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-@Api
+@Api(description="客户管理")
 @RestController
 @RequestMapping("cust")
 public class CustomerController {
