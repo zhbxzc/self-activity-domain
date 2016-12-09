@@ -30,7 +30,7 @@ mybatis:
 eureka:
   instance:
     preferIpAddress: true
-    statusPageUrlPath: /info.html
+    statusPageUrlPath: /swagger-ui.html
   client:
     serviceUrl:
       defaultZone: http://localhost:20000/eureka/

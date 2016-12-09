@@ -182,6 +182,15 @@ public class CustomerController {
 	@RequestMapping(value="/customer/searchCust",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
 	public Result<List<QueryCustResult>> searchCust(QueryCustParam custparam,PageBean pageBean,@RequestHeader HttpHeaders headers){
 		List<QueryCustResult> list = customerService.searchCust(custparam, pageBean);
-		return new Result<List<QueryCustResult>>("0",list);
+		Result<List<QueryCustResult>> result=new Result<List<QueryCustResult>>("0",list);
+		if(pageBean.getNumber()!=null&&pageBean.getSize()!=null){
+			if(pageBean.getNumber()!=0&&pageBean.getSize()!=0){
+				long count = customerService.searchCount(custparam);
+				pageBean.setTotalElements(count);
+				pageBean.setTotalPages();
+				result.setPage(pageBean);
+			}
+		}
+		return result;
 	}
 }

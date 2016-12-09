@@ -19,6 +19,19 @@
     <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
     <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
   </resultMap>
+  <resultMap id="QueryMap" type="com.self.activity.vo.QueryCetificationResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="expiry_date" property="expiryDate" jdbcType="DATE" />
+    <result column="version_no" property="versionNo" jdbcType="INTEGER" />
+    <result column="created_by_id" property="createdById" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by_id" property="lastUpdatedById" jdbcType="BIGINT" />
+    <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated
@@ -27,6 +40,10 @@
     -->
     id, customer_id, type_id, code, expiry_date, version_no, created_by_id, created_time, 
     last_updated_by_id, last_updated_time, deleted_flag
+  </sql>
+  <sql id="foreward_Column_List" >
+    id, customer_id, type_id, code, expiry_date, version_no, created_by_id, created_time, 
+    last_updated_by_id, last_updated_time, CASE deleted_flag WHEN 1 THEN "已删除" ELSE "未删除" END deleted_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     <!--
@@ -201,4 +218,10 @@
       deleted_flag = #{deletedFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="searchBycustId" parameterType="java.lang.String"  resultMap="QueryMap"  >
+  	select 
+    <include refid="foreward_Column_List" />
+    from cu_certification
+    where customer_id = #{custId,jdbcType=VARCHAR} and deleted_flag=0
+  </select>
 </mapper>

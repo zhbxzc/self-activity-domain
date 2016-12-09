@@ -1,7 +1,10 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
 import com.self.activity.model.OrgCustomer;
 import com.self.activity.model.OrgCustomerKey;
+import com.self.activity.vo.QueryOrgCustomerResult;
 
 public interface OrgCustomerMapper {
     /**
@@ -51,4 +54,6 @@ public interface OrgCustomerMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(OrgCustomer record);
+    
+    List<QueryOrgCustomerResult> searchBycustId(String custId);
 }

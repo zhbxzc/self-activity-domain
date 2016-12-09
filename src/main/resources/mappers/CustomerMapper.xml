@@ -95,8 +95,16 @@
     <result column="last_updated_by_id" property="lastUpdatedById" jdbcType="BIGINT" />
     <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
     <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
-    <!-- <collection property="addressList" column="id"                       
-            select="com.self.activity.dao.AddressMapper.searchBycustId" /> -->
+    <collection property="addressList" column="id"                       
+            select="com.self.activity.dao.AddressMapper.searchBycustId" />
+    <collection property="certificationList" column="id"                       
+            select="com.self.activity.dao.CertificationMapper.searchBycustId" />
+    <collection property="xindexList" column="id"                       
+            select="com.self.activity.dao.XindexMapper.searchByCustId" />
+    <collection property="relationList" column="id"                       
+            select="com.self.activity.dao.RelationMapper.searchBycustId" />
+    <collection property="orgList" column="id"                       
+            select="com.self.activity.dao.OrgCustomerMapper.searchBycustId" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -110,6 +118,15 @@
     nickname, livestate_id, liveorgstate_id, occupation_other, religion_id, interculture_id, 
     intersports_id, abo_blood_id, rh_blood_id, resident_flag, high_flag, employee_flag, 
     version_no, created_by_id, created_time, last_updated_by_id, last_updated_time, deleted_flag
+  </sql>
+  <sql id="foreward_Column_List" >
+    id, regist_org_id, type_id, code, name, des, sex_id, birthday, id_card_no, email, 
+    mobile, tel, country_id, nation_id, language_id, politics_id, education_id, degree_id, 
+    occupation_id, org_name, married_flag, regist_time, main_index_flag, spell_no, wubi_no, 
+    nickname, livestate_id, liveorgstate_id, occupation_other, religion_id, interculture_id, 
+    intersports_id, abo_blood_id, rh_blood_id, resident_flag, high_flag, employee_flag, 
+    version_no, created_by_id, created_time, last_updated_by_id, last_updated_time, 
+    CASE deleted_flag WHEN 1 THEN "已删除" ELSE "未删除" END deleted_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     <!--
@@ -894,11 +911,26 @@
   <update id="alter" parameterType="com.self.activity.vo.CustomerVO" >
   	update cu_customer
     <set >
+      <if test="registOrgId != null" >
+        regist_org_id = #{registOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="des != null" >
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="sexId != null" >
+        sex_id = #{sexId,jdbcType=INTEGER},
+      </if>
       <if test="birthday != null" >
-        birthday = #{birthday,jdbcType=DATE},
+        birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="idCardNo != null" >
         id_card_no = #{idCardNo,jdbcType=VARCHAR},
@@ -912,11 +944,98 @@
       <if test="tel != null" >
         tel = #{tel,jdbcType=VARCHAR},
       </if>
-      <if test="lastUpdatedTime != null" >
-        last_updated_time = #{lastUpdatedTime,jdbcType=TIMESTAMP},
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="nationId != null" >
+        nation_id = #{nationId,jdbcType=INTEGER},
+      </if>
+      <if test="languageId != null" >
+        language_id = #{languageId,jdbcType=INTEGER},
+      </if>
+      <if test="politicsId != null" >
+        politics_id = #{politicsId,jdbcType=INTEGER},
+      </if>
+      <if test="educationId != null" >
+        education_id = #{educationId,jdbcType=INTEGER},
+      </if>
+      <if test="degreeId != null" >
+        degree_id = #{degreeId,jdbcType=INTEGER},
+      </if>
+      <if test="occupationId != null" >
+        occupation_id = #{occupationId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="marriedFlag != null" >
+        married_flag = #{marriedFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainIndexFlag != null" >
+        main_index_flag = #{mainIndexFlag,jdbcType=BIT},
+      </if>
+      <if test="spellNo != null" >
+        spell_no = #{spellNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wubiNo != null" >
+        wubi_no = #{wubiNo,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="livestateId != null" >
+        livestate_id = #{livestateId,jdbcType=INTEGER},
+      </if>
+      <if test="liveorgstateId != null" >
+        liveorgstate_id = #{liveorgstateId,jdbcType=INTEGER},
+      </if>
+      <if test="occupationOther != null" >
+        occupation_other = #{occupationOther,jdbcType=VARCHAR},
+      </if>
+      <if test="religionId != null" >
+        religion_id = #{religionId,jdbcType=INTEGER},
+      </if>
+      <if test="intercultureId != null" >
+        interculture_id = #{intercultureId,jdbcType=VARCHAR},
+      </if>
+      <if test="intersportsId != null" >
+        intersports_id = #{intersportsId,jdbcType=VARCHAR},
+      </if>
+      <if test="aboBloodId != null" >
+        abo_blood_id = #{aboBloodId,jdbcType=INTEGER},
+      </if>
+      <if test="rhBloodId != null" >
+        rh_blood_id = #{rhBloodId,jdbcType=INTEGER},
+      </if>
+      <if test="residentFlag != null" >
+        resident_flag = #{residentFlag,jdbcType=BIT},
+      </if>
+      <if test="highFlag != null" >
+        high_flag = #{highFlag,jdbcType=BIT},
+      </if>
+      <if test="employeeFlag != null" >
+        employee_flag = #{employeeFlag,jdbcType=BIT},
+      </if>
+      <if test="versionNo != null" >
+        version_no = #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="createdById != null" >
+        created_by_id = #{createdById,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatedById != null" >
+        last_updated_by_id = #{lastUpdatedById,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdatedTime != null" >
+        last_updated_time = #{lastUpdatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedFlag != null" >
+        deleted_flag = #{deletedFlag,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -1010,7 +1129,7 @@
   </select>
   <select id="searchCust" resultMap="custInfo" >
   	select 
-  		<include refid="Base_Column_List" />
+  		<include refid="foreward_Column_List" />
   	from cu_customer 
   	where 1=1
   	  <if test="cust.id != null  and cust.id!=''">

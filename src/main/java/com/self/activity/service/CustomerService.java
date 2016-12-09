@@ -1,5 +1,6 @@
 package com.self.activity.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,6 +55,7 @@ public class CustomerService {
 		return customerMapper.searchCount(custparam);
 	}
 	public List<QueryCustResult> searchCust(QueryCustParam custparam,PageBean pageBean){
+		pageBean.init();
 		return customerMapper.searchCust(custparam, pageBean);
 	}
 }
