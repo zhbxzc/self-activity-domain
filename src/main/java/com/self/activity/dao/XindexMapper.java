@@ -1,5 +1,7 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
 import com.self.activity.model.Xindex;
 
 public interface XindexMapper {
@@ -50,4 +52,6 @@ public interface XindexMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(Xindex record);
+    
+    List<?> searchByCustId(String custId);
 }

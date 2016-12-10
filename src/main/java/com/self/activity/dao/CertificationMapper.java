@@ -1,6 +1,9 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
 import com.self.activity.model.Certification;
+import com.self.activity.vo.QueryCetificationResult;
 
 public interface CertificationMapper {
     /**
@@ -50,4 +53,6 @@ public interface CertificationMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(Certification record);
+    
+    List<QueryCetificationResult> searchBycustId(String custId);
 }

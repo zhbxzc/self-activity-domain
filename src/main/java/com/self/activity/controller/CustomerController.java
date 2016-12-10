@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.self.activity.service.CustomerService;
+import com.self.activity.vo.CustomerVO;
 import com.self.activity.vo.QueryCustParam;
 import com.self.activity.vo.QueryCustResult;
 import com.self.activity.sdk.bean.PageBean;
 import com.self.activity.sdk.bean.Result;
+import com.self.activity.sdk.util.Loggers;
+import com.alibaba.fastjson.JSON;
 import com.self.activity.model.Customer;
 
 import io.swagger.annotations.Api;
@@ -30,7 +33,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	@ApiOperation(value="客户注册",notes="客户的注册接口")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="Customer",paramType="body"),
+		@ApiImplicitParam(name="customer",required=true,value = "customer对象",dataType="CustomerVO",paramType="body"),
 		@ApiImplicitParam(name = "TK_BUSINESS_SERIALID", value = "交易流水", required = true,dataType="String",paramType="header",defaultValue="11111"),
 		@ApiImplicitParam(name = "TK_REQUEST_SYS_CODE", value = "请求方系统编码", required = false,dataType="String",paramType="header",defaultValue="22222"),
 		@ApiImplicitParam(name = "TK_REQUEST_MODULE_CODE", value = "请求方模块编码", required = false,dataType="String",paramType="header",defaultValue="33333"),
@@ -40,9 +43,11 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer",method=RequestMethod.POST,produces="application/json;charset='UTF-8'")
-	public Result<Customer> register(@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+	public Result<CustomerVO> register(@Valid @RequestBody CustomerVO customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户注册业务编码", "客户注册服务编码", "客户注册为："+JSON.toJSONString(customer));
 		customerService.register(customer);
-		return new Result<Customer>("0",customer);
+		Loggers.info(headers, false, "客户注册业务编码", "客户注册服务编码", "客户注册结果为："+JSON.toJSONString(customer));
+		return new Result<CustomerVO>("0",customer);
 	}
 	@ApiOperation(value="客户更新",notes="客户的更新接口")
 	@ApiImplicitParams({
@@ -56,10 +61,12 @@ public class CustomerController {
 		@ApiImplicitParam(name = "Content-Type", value = "内容类型", required = true,dataType="String",paramType="header",defaultValue="application/json; charset=UTF-8")
 	})
 	@RequestMapping(value="/customer/{id}",method=RequestMethod.PUT,produces="application/json;charset='UTF-8'")
-	public Result<Customer> alter(@PathVariable String id,@Valid @RequestBody Customer customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+	public Result<CustomerVO> alter(@PathVariable String id,@Valid @RequestBody CustomerVO customer,BindingResult bindingResult,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户更新业务编码", "客户更新服务编码", "客户更新为："+JSON.toJSONString(customer));
 		customer.setId(id);
 		customerService.alter(customer);
-		return new Result<Customer>("0",customer);
+		Loggers.info(headers, false, "客户更新业务编码", "客户更新服务编码", "客户更新为："+JSON.toJSONString(customer));
+		return new Result<CustomerVO>("0",customer);
 	}
 	@ApiOperation(value="客户查询",notes="客户查询接口")
 	@ApiImplicitParams({
@@ -83,6 +90,7 @@ public class CustomerController {
 	})
 	@RequestMapping(value="/customer",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
 	public Result<List<Customer>> search(QueryCustParam custparam,PageBean pageBean,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户普通查询业务编码", "客户普通查询服务编码", "客户普通查询为："+JSON.toJSONString(custparam)+"分页信息："+JSON.toJSONString(pageBean));
 		List<Customer> list = customerService.search(custparam,pageBean);
 		Result<List<Customer>> result = new Result<List<Customer>>("0",list);
 		if(pageBean.getNumber()!=null&&pageBean.getSize()!=null){
@@ -93,6 +101,7 @@ public class CustomerController {
 				result.setPage(pageBean);
 			}
 		}
+		Loggers.info(headers, false, "客户普通查询业务编码", "客户普通查询服务编码", "客户普通查询结果为："+JSON.toJSONString(result));
 		return result;
 	}
 	@ApiOperation(value="客户数量查询",notes="客户数量查询接口")
@@ -115,9 +124,11 @@ public class CustomerController {
 	})
 	@RequestMapping(value="/customer/count",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
 	public Result<PageBean> searchCount(QueryCustParam custparam,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户查询数量业务编码", "客户查询数量服务编码", "查询条件为："+JSON.toJSONString(custparam));
 		Long count = customerService.searchCount(custparam);
 		PageBean pb=new PageBean();
 		pb.setTotalElements(count);
+		Loggers.info(headers, false, "客户查询数量业务编码", "客户查询数量服务编码", "查询结果为："+JSON.toJSONString(pb));
 		return new Result<PageBean>("0",pb);
 	}
 	@ApiOperation(value="客户单体查询",notes="客户单体查询接口")
@@ -133,10 +144,12 @@ public class CustomerController {
 	})
 	@RequestMapping(value="/customer/{id}",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
 	public Result<Customer> searchById(@PathVariable String id,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户单体查询业务编码", "客户单体查询服务编码", "查询条件为：id="+JSON.toJSONString(id));
 		Customer customer = customerService.searchById(id);
 		if(null == customer){
 			return new Result<Customer>("CUS10030",customer);
 		}
+		Loggers.info(headers, false, "客户单体查询业务编码", "客户单体查询服务编码", "查询结果为："+JSON.toJSONString(customer));
 		return new Result<Customer>("0",customer);
 	}
 	@ApiOperation(value="客户删除",notes="客户删除接口")
@@ -152,11 +165,13 @@ public class CustomerController {
 	})
 	@RequestMapping(value="customer/{id}",method=RequestMethod.DELETE,produces="application/json;charset='UTF-8'")
 	public Result<Long> delete(@PathVariable String id,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户单体删除业务编码", "客户单体删除服务编码", "删除条件为：id="+JSON.toJSONString(id));
 		int count = customerService.delete(id);
 		if(count == 0){
 			return new Result<Long>("1");
 		}
-		return new Result<Long>("0",id);
+		Loggers.info(headers, false, "客户单体删除业务编码", "客户单体删除服务编码", "删除成功：id="+JSON.toJSONString(id));
+		return new Result<Long>("0");
 	}
 	@ApiOperation(value="客户查询",notes="客户查询接口")
 	@ApiImplicitParams({
@@ -180,7 +195,18 @@ public class CustomerController {
 	})
 	@RequestMapping(value="/customer/searchCust",method=RequestMethod.GET,produces="application/json;charset='UTF-8'")
 	public Result<List<QueryCustResult>> searchCust(QueryCustParam custparam,PageBean pageBean,@RequestHeader HttpHeaders headers){
+		Loggers.info(headers, true, "客户进阶查询业务编码", "客户进阶查询服务编码", "客户进阶查询为："+JSON.toJSONString(custparam)+"分页信息："+JSON.toJSONString(pageBean));
 		List<QueryCustResult> list = customerService.searchCust(custparam, pageBean);
-		return new Result<List<QueryCustResult>>("0",list);
+		Result<List<QueryCustResult>> result=new Result<List<QueryCustResult>>("0",list);
+		if(pageBean.getNumber()!=null&&pageBean.getSize()!=null){
+			if(pageBean.getNumber()!=0&&pageBean.getSize()!=0){
+				long count = customerService.searchCount(custparam);
+				pageBean.setTotalElements(count);
+				pageBean.setTotalPages();
+				result.setPage(pageBean);
+			}
+		}
+		Loggers.info(headers, false, "客户进阶查询业务编码", "客户进阶查询服务编码", "客户进阶查询结果为："+JSON.toJSONString(result));
+		return result;
 	}
 }

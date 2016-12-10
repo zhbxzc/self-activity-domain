@@ -18,6 +18,18 @@
     <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
     <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
   </resultMap>
+  <resultMap id="queryResult" type="com.self.activity.vo.QueryRelationResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="custormer_id" property="custormerId" jdbcType="VARCHAR" />
+    <result column="relation_customer_id" property="relationCustomerId" jdbcType="VARCHAR" />
+    <result column="relation_type_id" property="relationTypeId" jdbcType="VARCHAR" />
+    <result column="version_no" property="versionNo" jdbcType="INTEGER" />
+    <result column="created_by_id" property="createdById" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by_id" property="lastUpdatedById" jdbcType="BIGINT" />
+    <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
+  </resultMap>
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated
@@ -26,6 +38,10 @@
     -->
     id, custormer_id, relation_customer_id, relation_type_id, version_no, created_by_id, 
     created_time, last_updated_by_id, last_updated_time, deleted_flag
+  </sql>
+  <sql id="foreward_Column_List" >
+    id, custormer_id, relation_customer_id, relation_type_id, version_no, created_by_id, 
+    created_time, last_updated_by_id, last_updated_time, CASE deleted_flag WHEN 1 THEN "已删除" ELSE "未删除" END deleted_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     <!--
@@ -180,7 +196,7 @@
     -->
     update cu_relation
     set custormer_id = #{custormerId,jdbcType=VARCHAR},
-      relation_customer_id = #{relationCustomerId,jdbcType=BIGINT},
+      relation_customer_id = #{relationCustomerId,jdbcType=VARCHAR},
       relation_type_id = #{relationTypeId,jdbcType=VARCHAR},
       version_no = #{versionNo,jdbcType=INTEGER},
       created_by_id = #{createdById,jdbcType=BIGINT},
@@ -190,4 +206,10 @@
       deleted_flag = #{deletedFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="searchBycustId" parameterType="java.lang.String" resultMap="queryResult" >
+  	select 
+    	<include refid="foreward_Column_List" />
+    from cu_relation
+    	where custormer_id = #{custormerId,jdbcType=VARCHAR}
+  </select>
 </mapper>

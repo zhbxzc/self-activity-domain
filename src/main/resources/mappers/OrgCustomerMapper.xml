@@ -16,6 +16,16 @@
     <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
     <result column="deleted_flag" property="deletedFlag" jdbcType="BIT" />
   </resultMap>
+  <resultMap id="queryResult" type="com.self.activity.vo.QueryOrgCustomerResult" >
+    <id column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <id column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="version_no" property="versionNo" jdbcType="INTEGER" />
+    <result column="created_by_id" property="createdById" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_updated_by_id" property="lastUpdatedById" jdbcType="BIGINT" />
+    <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated
@@ -24,6 +34,10 @@
     -->
     customer_id, org_id, version_no, created_by_id, created_time, last_updated_by_id, 
     last_updated_time, deleted_flag
+  </sql>
+  <sql id="foreward_Column_List" >
+    customer_id, org_id, version_no, created_by_id, created_time, last_updated_by_id, 
+    last_updated_time, CASE deleted_flag WHEN 1 THEN "已删除" ELSE "未删除" END deleted_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.self.activity.model.OrgCustomerKey" >
     <!--
@@ -166,4 +180,11 @@
     where customer_id = #{customerId,jdbcType=VARCHAR}
       and org_id = #{orgId,jdbcType=INTEGER}
   </update>
+  <select id="searchBycustId" parameterType="java.lang.String" resultMap="queryResult" >
+  	select 
+    <include refid="foreward_Column_List" />
+    from cu_org_customer
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+      and deleted_flag = 0
+  </select>
 </mapper>

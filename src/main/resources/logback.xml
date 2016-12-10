@@ -24,6 +24,10 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
+	<logger name="com.self" level="INFO" additivity="false" >
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
 	<root level="WARN" >
 		<appender-ref ref="console" />
 		<appender-ref ref="file" />

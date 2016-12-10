@@ -1,6 +1,9 @@
 package com.self.activity.dao;
 
+import java.util.List;
+
 import com.self.activity.model.Relation;
+import com.self.activity.vo.QueryRelationResult;
 
 public interface RelationMapper {
     /**
@@ -50,4 +53,6 @@ public interface RelationMapper {
      * @mbggenerated Fri Nov 25 09:37:25 CST 2016
      */
     int updateByPrimaryKey(Relation record);
+    
+    List<QueryRelationResult> searchBycustId(String custId);
 }

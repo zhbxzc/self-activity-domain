@@ -3,7 +3,7 @@ spring:
   datasource:
     name: mydb
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/selfdb?zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://localhost:3306/selfdb?zeroDateTimeBehavior=convertToNull&useSSL=false&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -22,7 +22,12 @@ spring:
     username: zhb
     password: zhb
     virtual-host: cloud-zhb
-
+  data:
+    solr:
+      host: http://127.0.0.1:11011/solr/basecode
+      zk-host: 
+      repositories:
+        enabled: true
 mybatis:
   #此配置配合xmlUserMapper的使用
   mapperLocations: classpath:/mappers/*.xml

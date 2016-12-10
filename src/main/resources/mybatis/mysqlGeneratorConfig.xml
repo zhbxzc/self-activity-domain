@@ -30,41 +30,41 @@
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
     <!-- tables 配置好表名和对应的实体对象名 -->
-     <table tableName="cu_customer" domainObjectName="Customer" 
+     <!-- <table tableName="cu_customer" domainObjectName="Customer" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
-    <table tableName="cu_xindex" domainObjectName="Xindex" 
+    </table> -->
+    <!-- <table tableName="cu_xindex" domainObjectName="Xindex" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
-    <table tableName="cu_relation" domainObjectName="Relation" 
+    </table> -->
+    <!-- <table tableName="cu_relation" domainObjectName="Relation" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
-    <table tableName="cu_certification" domainObjectName="Certification" 
+    </table> -->
+    <!-- <table tableName="cu_certification" domainObjectName="Certification" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
-    <table tableName="cu_address" domainObjectName="Address" 
+    </table> -->
+   <!--  <table tableName="cu_address" domainObjectName="Address" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
-    <table tableName="cu_org_customer" domainObjectName="OrgCustomer" 
+    </table> -->
+    <!-- <table tableName="cu_org_customer" domainObjectName="OrgCustomer" 
     		enableCountByExample="false" enableUpdateByExample="false"
     		enableSelectByExample="false" enableDeleteByExample="false"
     		selectByExampleQueryId="false">
     		<property name="useActualColumnNames" value="false"/>
-    </table>
+    </table> -->
   </context>
 </generatorConfiguration>
